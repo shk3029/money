@@ -1,4 +1,4 @@
-package com.kakaopay.money.generator;
+package com.kakaopay.money.token;
 
 import com.kakaopay.money.constant.TokenType;
 import org.apache.commons.lang3.StringUtils;
