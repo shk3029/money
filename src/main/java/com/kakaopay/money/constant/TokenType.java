@@ -1,16 +1,17 @@
 package com.kakaopay.money.constant;
 
-import com.kakaopay.money.generator.AlphaTokenGenerator;
-import com.kakaopay.money.generator.NumericTokenGenerator;
-import com.kakaopay.money.generator.TokenGenerator;
+import com.kakaopay.money.token.AlphaTokenGenerator;
+import com.kakaopay.money.token.NumericTokenGenerator;
+import com.kakaopay.money.token.TokenGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public enum TokenType {
-    ALPHA("영문토큰", new AlphaTokenGenerator()),
-    NUMBER("숫자토큰", new NumericTokenGenerator());
+
+    ALPHA("영문토큰", AlphaTokenGenerator.getInstance()),
+    NUMBER("숫자토큰", NumericTokenGenerator.getInstance());
 
     private String description;
     private TokenGenerator tokenGenerator;

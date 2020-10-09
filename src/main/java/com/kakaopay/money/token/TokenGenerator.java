@@ -1,7 +1,5 @@
-package com.kakaopay.money.generator;
+package com.kakaopay.money.token;
 
 public interface TokenGenerator {
-
     String generateToken(int count);
-
 }
