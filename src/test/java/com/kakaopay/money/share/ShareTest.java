@@ -1,5 +1,6 @@
 package com.kakaopay.money.share;
 
+import com.kakaopay.money.share.entity.Share;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
