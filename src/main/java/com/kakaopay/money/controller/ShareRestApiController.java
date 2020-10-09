@@ -2,7 +2,6 @@ package com.kakaopay.money.controller;
 
 
 import com.kakaopay.money.constant.CustomHeaders;
-import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.service.ShareService;
 import com.kakaopay.money.share.dto.ShareDto;
 import com.kakaopay.money.share.entity.Share;
@@ -11,13 +10,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDateTime;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -28,29 +28,33 @@ public class ShareRestApiController {
 
     private final ShareService shareService;
 
-
     @PostMapping(value = "/api/share", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity shareMoney(
-            @RequestHeader(CustomHeaders.ROOM_ID) String roomId,
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
-            @RequestBody ShareDto shareDto) {
+            @RequestHeader(CustomHeaders.ROOM_ID) String roomId,
+            @RequestBody @Valid ShareDto shareDto, Errors errors) {
 
-        log.info(">>> {} : {} ", CustomHeaders.ROOM_ID, roomId);
-        log.info(">>> {} : {} ", CustomHeaders.USER_ID, userId);
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().build();
+        }
 
         Share share = ShareMapper.INSTANCE.shareDtoToEntity(shareDto);
-        share.setShareType(ShareType.EQUITY);
-        Share newShare = shareService.share(share);
-        System.out.println(newShare);
+        share.setUser_id(userId);
+        share.setRoom_id(roomId);
 
-        URI uri = linkTo(ShareRestApiController.class).slash(newShare.getToken()).toUri();
+        Share savedShare = shareService.share(share);
+        URI uri = linkTo(ShareRestApiController.class).slash(savedShare.getToken()).toUri();
 
+        return ResponseEntity.created(uri).headers(customHeaders(userId,roomId)).body(savedShare);
+    }
+
+
+
+    private CustomHeaders customHeaders(Long userId, String roomId) {
         CustomHeaders customHeaders = new CustomHeaders();
         customHeaders.setUserId(userId);
         customHeaders.setRoomId(roomId);
-        ;
-
-        return ResponseEntity.created(uri).headers(customHeaders).body(newShare);
+        return customHeaders;
     }
 }
 
