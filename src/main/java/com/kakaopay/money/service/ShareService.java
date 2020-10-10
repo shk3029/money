@@ -2,12 +2,16 @@ package com.kakaopay.money.service;
 
 import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.constant.TokenType;
+import com.kakaopay.money.receive.entity.Receive;
+import com.kakaopay.money.receive.respository.ReceiveRepository;
 import com.kakaopay.money.share.entity.Share;
 import com.kakaopay.money.share.repository.ShareRepositroy;
-import com.kakaopay.money.distributor.Distributer;
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -15,27 +19,37 @@ import org.springframework.transaction.annotation.Transactional;
 public class ShareService {
 
     private final ShareRepositroy shareRepositroy;
-
+    private final ReceiveRepository receiveRepository;
 
     @Transactional
     public Share share(Share share) {
         share.setToken(generateToken());
-        return shareRepositroy.save(share);
+        Share savedShare = shareRepositroy.save(share);
+        System.out.println(savedShare);
+        distribute(savedShare);
+        return savedShare;
     }
 
 
-    // 3개짜리 영문 토큰값 발급
-    private String generateToken() {
+
+    String generateToken() {
         return TokenType.ALPHA.getTokenGenerator().generateToken(3);
     }
 
-    // 분배
-    private void distribute(Share share) {
-        Distributer equityDistributer = share.getShareType().getDistributer();
-        long[] distributed = equityDistributer.distribute(share.getMoney(), share.getCount());
+    @Transactional
+    void distribute(Share share) {
+        long[] dividedMoney = divide(share);
 
-        for (int i=0; i<distributed.length; i++) {
-
+        int i=0;
+        for (long money : dividedMoney) {
+            Receive save = receiveRepository.save(new Receive(share, i++, money));
+            System.out.println(save);
         }
     }
+
+    long[] divide(Share share) {
+        return ShareType.EQUITY.getDistributer().distribute(share.getMoney(), share.getCount());
+    }
+
+
 }
