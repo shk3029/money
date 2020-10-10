@@ -22,7 +22,6 @@ public class ShareService {
     public Share share(Share share) {
         share.setToken(generateToken());
         Share savedShare = shareRepositroy.save(share);
-        System.out.println(savedShare);
         distribute(savedShare);
         return savedShare;
     }
@@ -44,7 +43,7 @@ public class ShareService {
     }
 
     long[] divide(Share share) {
-        return ShareType.EQUITY.getDistributer().distribute(share.getMoney(), share.getCount());
+        return share.getShareType().getDistributer().distribute(share.getMoney(), share.getCount());
     }
 
 

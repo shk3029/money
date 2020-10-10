@@ -2,6 +2,7 @@ package com.kakaopay.money.share.controller;
 
 
 import com.kakaopay.money.constant.CustomHeaders;
+import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.share.dto.ShareDto;
 import com.kakaopay.money.share.entity.Share;
 import com.kakaopay.money.share.mapper.ShareMapper;
@@ -42,6 +43,7 @@ public class ShareRestApiController {
         Share share = ShareMapper.INSTANCE.shareDtoToEntity(shareDto);
         share.setUser_id(userId);
         share.setRoom_id(roomId);
+        share.setShareType(ShareType.EQUITY);
 
         Share savedShare = shareService.share(share);
 

@@ -53,7 +53,10 @@ class ShareRestApiControllerTest {
                 .andExpect(header().exists(CustomHeaders.ROOM_ID))
                 .andExpect(header().exists(CustomHeaders.USER_ID))
                 .andExpect(header().exists(CustomHeaders.LOCATION))
-                .andExpect(header().string(CustomHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE));
+                .andExpect(header().string(CustomHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.share").exists())
+                .andExpect(jsonPath("_links.search").exists());
     }
 
     @Test

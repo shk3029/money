@@ -1,5 +1,6 @@
 package com.kakaopay.money.share.entity;
 
+import com.kakaopay.money.constant.ShareType;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -34,6 +35,10 @@ public class Share {
 
     @Column(name = "created_at")
     private LocalDateTime created_at = LocalDateTime.now();
+
+    @Column(name = "share_type")
+    @Enumerated(EnumType.STRING)
+    private ShareType shareType;
 
     @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER)

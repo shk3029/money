@@ -1,5 +1,6 @@
 package com.kakaopay.money.share.service;
 
+import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.share.repository.ReceiveRepository;
 import com.kakaopay.money.share.entity.Share;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +37,7 @@ class ShareServiceTest {
                 .room_id("A")
                 .user_id(1l)
                 .count(3)
+                .shareType(ShareType.EQUITY)
                 .created_at(LocalDateTime.now())
                 .build();
 
@@ -44,6 +46,7 @@ class ShareServiceTest {
                 .room_id("AD")
                 .user_id(3l)
                 .count(4)
+                .shareType(ShareType.EQUITY)
                 .created_at(LocalDateTime.now())
                 .build();
     }
