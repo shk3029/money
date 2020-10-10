@@ -1,0 +1,27 @@
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: 1
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
