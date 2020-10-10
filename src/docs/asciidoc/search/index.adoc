@@ -1,0 +1,26 @@
+= 조회 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toc-title:  조회 API
+:sectlinks:
+
+[메인 페이지]
+= 메인 페이지
+| link:/docs/index.html[Main]
+
+[[resources-search]]
+== 조회 API
+`GET` 요청을 사용하여 뿌리기 내역을 조회할 수 있다.
+
+
+=== Request
+include::{snippets}/search-money/request-fields.adoc[]
+include::{snippets}/search-money/http-request.adoc[]
+---
+
+=== Response
+include::{snippets}/search-money/response-fields.adoc[]
+include::{snippets}/search-money/http-response.adoc[]
+---

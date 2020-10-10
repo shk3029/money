@@ -1,0 +1,26 @@
+= 뿌리기 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toc-title:  뿌리기 API
+:sectlinks:
+
+[메인 페이지]
+= 메인 페이지
+| link:/docs/index.html[Main]
+
+[[resources-share]]
+== 뿌리기 API
+`POST` 요청을 사용해서 뿌리기를 생성할 수 있다.
+
+
+=== Request
+include::{snippets}/share-money/request-fields.adoc[]
+include::{snippets}/share-money/http-request.adoc[]
+---
+
+=== Response
+include::{snippets}/share-money/response-fields.adoc[]
+include::{snippets}/share-money/http-response.adoc[]
+---
