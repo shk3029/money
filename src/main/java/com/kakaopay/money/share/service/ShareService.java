@@ -1,17 +1,14 @@
-package com.kakaopay.money.service;
+package com.kakaopay.money.share.service;
 
 import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.constant.TokenType;
-import com.kakaopay.money.receive.entity.Receive;
-import com.kakaopay.money.receive.respository.ReceiveRepository;
+import com.kakaopay.money.share.entity.Receive;
+import com.kakaopay.money.share.repository.ReceiveRepository;
 import com.kakaopay.money.share.entity.Share;
 import com.kakaopay.money.share.repository.ShareRepositroy;
-import jdk.swing.interop.SwingInterOpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 @Service
@@ -29,7 +26,6 @@ public class ShareService {
         distribute(savedShare);
         return savedShare;
     }
-
 
 
     String generateToken() {

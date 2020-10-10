@@ -1,4 +1,4 @@
-package com.kakaopay.money.receive.entity;
+package com.kakaopay.money.share.entity;
 
 import com.kakaopay.money.share.entity.Share;
 import lombok.*;

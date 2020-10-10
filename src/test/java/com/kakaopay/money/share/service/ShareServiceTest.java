@@ -1,6 +1,6 @@
-package com.kakaopay.money.service;
+package com.kakaopay.money.share.service;
 
-import com.kakaopay.money.receive.respository.ReceiveRepository;
+import com.kakaopay.money.share.repository.ReceiveRepository;
 import com.kakaopay.money.share.entity.Share;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;

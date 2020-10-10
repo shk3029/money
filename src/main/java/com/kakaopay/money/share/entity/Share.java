@@ -1,7 +1,7 @@
 package com.kakaopay.money.share.entity;
 
-import com.kakaopay.money.receive.entity.Receive;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
