@@ -19,8 +19,8 @@ class DistributerTest {
     @Test
     @DisplayName("분배로직 2) 10000원을 3명에게 공정하게 분배, 나머지가 0이 아니면 마지막 사람에게 더해준다")
     void equiltySharer() {
-        long[] moneyArr = distributer.distribute(10000l, 3);
         distributer = ShareType.EQUITY.getDistributer();
+        long[] moneyArr = distributer.distribute(10000l, 3);
         long[] result = {3333,3333,3334};
         Assertions.assertArrayEquals(moneyArr, result);
     }
