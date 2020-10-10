@@ -15,12 +15,28 @@
 `POST` 요청을 사용해서 뿌리기를 생성할 수 있다.
 
 
-=== Request
+== Request
+
+=== Request Headers
+include::{snippets}/share-money/request-headers.adoc[]
+
+=== Request Fields
 include::{snippets}/share-money/request-fields.adoc[]
+
+=== HTTP Request
 include::{snippets}/share-money/http-request.adoc[]
+
 ---
 
-=== Response
+== Response
+
+=== Response Headers
+include::{snippets}/share-money/response-headers.adoc[]
+
+=== Response Fields
 include::{snippets}/share-money/response-fields.adoc[]
+
+=== HTTP Response
 include::{snippets}/share-money/http-response.adoc[]
----
+
+
