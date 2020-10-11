@@ -46,7 +46,7 @@ public class ShareRestApiController {
         Share share = ShareMapper.INSTANCE.shareDtoToEntity(shareDto);
         share.setUserId(userId);
         share.setRoomId(roomId);
-        share.setShareType(ShareType.EQUITY);
+        share.setShareType(ShareType.RANDOM);
 
         Share savedShare = shareRestApiService.share(share);
 
