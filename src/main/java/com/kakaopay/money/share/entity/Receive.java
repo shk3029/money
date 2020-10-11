@@ -3,8 +3,6 @@ package com.kakaopay.money.share.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Builder @Getter @Setter @ToString
 @RequiredArgsConstructor @NoArgsConstructor @AllArgsConstructor

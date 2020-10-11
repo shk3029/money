@@ -61,22 +61,7 @@ class ReceiveApiControllerTest extends ControllerTestBasicInfo {
     }
 
     @Test
-    @DisplayName("받기 API 400 테스트 1 : 자신이 뿌린 돈을 받으려고 하는 경우")
-    void receive_400_self() throws Exception {
-        createShare(share);
-
-        mockMvc.perform(put("/api/share/{token}", share.getToken())
-                .header(CustomHeaders.USER_ID, share.getUserId())
-                .header(CustomHeaders.ROOM_ID, REQUEST_HEADER_ROOM_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_JSON_VALUE))
-                .andDo(print())
-                .andExpect(status().isBadRequest());
-    }
-
-
-    @Test
-    @DisplayName("받기 API 400 테스트 2 : 뿌리고 10분이 지나고 받기를 요청한 경우")
+    @DisplayName("받기 API 404 테스트 3 : 뿌리고 10분이 지나고 받기를 요청한 경우")
     void receive_400_time_over() throws Exception {
         share.setCreatedAt(LocalDateTime.now().minusMinutes(11));
         createShare(share);
@@ -87,12 +72,26 @@ class ReceiveApiControllerTest extends ControllerTestBasicInfo {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON_VALUE))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("받기 API 400 테스트 3 : 이미 받은 사용자가 다시 받기를 요청한 경우 (요청1 : 200, 요청2: 400)")
-    void receive_400_duplicatedUser() throws Exception {
+    @DisplayName("받기 API 403 권한 테스트 : 자신이 뿌린 돈을 받으려고 하는 경우")
+    void receive_403_self() throws Exception {
+        createShare(share);
+
+        mockMvc.perform(put("/api/share/{token}", share.getToken())
+                .header(CustomHeaders.USER_ID, share.getUserId())
+                .header(CustomHeaders.ROOM_ID, REQUEST_HEADER_ROOM_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON_VALUE))
+                .andDo(print())
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @DisplayName("받기 API 403 권한 테스트 : 이미 받은 사용자가 다시 받기를 요청한 경우 (요청1 : 200, 요청2: 400)")
+    void receive_403_duplicatedUser() throws Exception {
         createShare(share);
 
         mockMvc.perform(put("/api/share/{token}", share.getToken())
@@ -110,7 +109,7 @@ class ReceiveApiControllerTest extends ControllerTestBasicInfo {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON_VALUE))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
     }
 }
 

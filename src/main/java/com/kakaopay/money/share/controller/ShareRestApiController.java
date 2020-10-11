@@ -1,6 +1,10 @@
 package com.kakaopay.money.share.controller;
 
 
+import com.kakaopay.money.advice.exception.RecevieAccessDeniedException;
+import com.kakaopay.money.advice.exception.RequiredParameterNotFoundException;
+import com.kakaopay.money.advice.exception.TimeOverException;
+import com.kakaopay.money.advice.exception.TokenNotFoundException;
 import com.kakaopay.money.constant.CustomHeaders;
 import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.share.dto.ReceiveDto;
@@ -42,9 +46,7 @@ public class ShareRestApiController {
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId,
             @RequestBody @Valid ShareDto shareDto, Errors errors) {
 
-        if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().build();
-        }
+        if (errors.hasErrors()) throw new RequiredParameterNotFoundException();
 
         Share share = ShareMapper.INSTANCE.shareDtoToEntity(shareDto);
         share.setUserId(userId);
@@ -71,20 +73,9 @@ public class ShareRestApiController {
 
         Share share = shareRestApiService.search(token).orElse(new Share());
 
-        // 토큰이 존재하지 않으면 Not Found
-        if (StringUtils.isEmpty(share.getToken())) {
-            return ResponseEntity.notFound().build();
-        }
-
-        // 뿌린 사람이 아니면 Not Found
-        if (share.getUserId().longValue() != userId) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        // 7일이 지났으면 Not Found
-        if (LocalDateTime.now().isAfter(share.getCreatedAt().plusDays(7))) {
-            return ResponseEntity.badRequest().build();
-        }
+        if (StringUtils.isEmpty(share.getToken())) throw new TokenNotFoundException();
+        if (share.getUserId().longValue() != userId) throw new RecevieAccessDeniedException();
+        if (LocalDateTime.now().isAfter(share.getCreatedAt().plusDays(7))) throw new TimeOverException("7일");
 
         SearchDto searchDto = shareToSearchDto(share);
 
@@ -104,25 +95,10 @@ public class ShareRestApiController {
 
         List<Receive> receiveList = shareRestApiService.findReceiveList(token, roomId);
 
-        // 현재 대화방 ID와 토큰값으로 뿌려진 돈이 없다
-        if (receiveList.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        // 자신이 뿌린거 받을려고 할때 익셉션
-        if (shareRestApiService.isSelfReceive(token, userId)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        // 현재 토큰값으로 뿌려진 뿌리기가 10분이 지난 경우
-        if (shareRestApiService.isTimeOverToken(token)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        // 한 사용자가 같은 토큰의 뿌린 값을 가져가려고 할때 익셉션
-        if (shareRestApiService.isDuplicatedUserReceive(receiveList, userId)) {
-            return ResponseEntity.badRequest().build();
-        }
+        if (receiveList.isEmpty()) throw new TokenNotFoundException("토큰이 존재하지 않거나 현재 대화방이 다릅니다");
+        if (shareRestApiService.isSelfReceive(token, userId)) throw new RecevieAccessDeniedException("본인이 뿌린 돈을 받을 수 없습니다");
+        if (shareRestApiService.isTimeOverToken(token)) throw new TimeOverException("10분");
+        if (shareRestApiService.isDuplicatedUserReceive(receiveList, userId)) throw new RecevieAccessDeniedException("중복해서 받을 수 없습니다");
 
         Optional<Receive> receiveOptional = receiveList.stream()
                 .filter(receive -> !receive.isReceived())

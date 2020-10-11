@@ -1,8 +1,6 @@
 package com.kakaopay.money.share.service;
 
 import com.kakaopay.money.constant.TokenType;
-import com.kakaopay.money.share.dto.ReceiveDto;
-import com.kakaopay.money.share.dto.SearchDto;
 import com.kakaopay.money.share.entity.Receive;
 import com.kakaopay.money.share.entity.Share;
 import com.kakaopay.money.share.repository.ReceiveRepository;
@@ -88,7 +86,6 @@ public class ShareRestApiService {
                 .map(receive -> receive.getUserId())
                 .anyMatch(user -> userId.equals(user));
     }
-
 
 
     String generateToken() {

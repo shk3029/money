@@ -36,7 +36,7 @@ class SearchApiControllerTest extends ControllerTestBasicInfo {
     }
 
     @Test
-    @DisplayName("조회 API 404 테스트 : 토큰이 존재하지 않는 경우")
+    @DisplayName("조회 API 404 테스트 1 : 토큰이 존재하지 않는 경우")
     void search_404_Token() throws Exception {
         createShare(share);
 
@@ -51,8 +51,22 @@ class SearchApiControllerTest extends ControllerTestBasicInfo {
     }
 
     @Test
-    @DisplayName("조회 API 400 테스트 1 : 뿌린 사람이 아닌 다른 사람이 조회하는 경우")
-    void search_400_User() throws Exception {
+    @DisplayName("조회 API 404 테스트 2 : 뿌린 건이 7일이상이 지난 경우")
+    void search_404_period() throws Exception {
+        share.setCreatedAt(LocalDateTime.now().minusDays(8));
+        createShare(share);
+
+        mockMvc.perform(get("/api/share/{token}", share.getToken())
+                .header(CustomHeaders.ROOM_ID, REQUEST_HEADER_ROOM_ID)
+                .header(CustomHeaders.USER_ID, REQUEST_HEADER_USER_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON_VALUE))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("조회 API 403 권한 테스트 : 뿌린 사람이 아닌 다른 사람이 조회하는 경우")
+    void search_403_User() throws Exception {
         createShare(share);
 
         long otherUserId = 999l;
@@ -62,21 +76,7 @@ class SearchApiControllerTest extends ControllerTestBasicInfo {
                 .header(CustomHeaders.USER_ID, otherUserId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON_VALUE))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @DisplayName("조회 API 400 테스트 2 : 뿌린 건이 7일이상이 지난 경우")
-    void search_400_period() throws Exception {
-        share.setCreatedAt(LocalDateTime.now().minusDays(8));
-        createShare(share);
-
-        mockMvc.perform(get("/api/share/{token}", share.getToken())
-                .header(CustomHeaders.ROOM_ID, REQUEST_HEADER_ROOM_ID)
-                .header(CustomHeaders.USER_ID, REQUEST_HEADER_USER_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_JSON_VALUE))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
     }
 
 }

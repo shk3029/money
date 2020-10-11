@@ -1,13 +1,11 @@
 package com.kakaopay.money.share.dto;
 
 import com.kakaopay.money.share.entity.Receive;
-import com.kakaopay.money.share.entity.Share;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

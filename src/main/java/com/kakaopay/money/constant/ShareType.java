@@ -1,8 +1,8 @@
 package com.kakaopay.money.constant;
 
+import com.kakaopay.money.distributor.Distributer;
 import com.kakaopay.money.distributor.EquityDistributer;
 import com.kakaopay.money.distributor.RandomDistributer;
-import com.kakaopay.money.distributor.Distributer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
