@@ -34,20 +34,20 @@ class ShareServiceTest {
     void setUp() {
         shareA = Share.builder()
                 .money(10000l)
-                .room_id("A")
-                .user_id(1l)
+                .roomId("A")
+                .userId(1l)
                 .count(3)
                 .shareType(ShareType.EQUITY)
-                .created_at(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
 
         shareB = Share.builder()
                 .money(100000l)
-                .room_id("AD")
-                .user_id(3l)
+                .roomId("AD")
+                .userId(3l)
                 .count(4)
                 .shareType(ShareType.EQUITY)
-                .created_at(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 

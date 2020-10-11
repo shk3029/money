@@ -1,9 +1,8 @@
-package com.kakaopay.money.sharing.controller;
+package com.kakaopay.money.share.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaopay.money.constant.CustomHeaders;
 import com.kakaopay.money.share.dto.ShareDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ShareRestApiControllerTest {
+class ShareApiControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,20 +26,12 @@ class ShareRestApiControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private ShareDto shareDto;
-
-    @BeforeEach
-    @DisplayName("ShareDto 초기 셋팅")
-    void setShareDto() {
-        shareDto = ShareDto.builder()
-                .money(10000L)
-                .count(3)
-                .build();
-    }
-
     @Test
     @DisplayName("뿌리기 API CREATED(201) 테스트")
     void share_201() throws Exception {
+
+        ShareDto shareDto = createShareDto();
+
         mockMvc.perform(post("/api/share")
                 .header(CustomHeaders.ROOM_ID, "a")
                 .header(CustomHeaders.USER_ID, 1L)
@@ -56,13 +47,16 @@ class ShareRestApiControllerTest {
                 .andExpect(header().string(CustomHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.share").exists())
-                .andExpect(jsonPath("_links.search").exists());
+                .andExpect(jsonPath("_links.search").exists())
+                .andExpect(jsonPath("_links.profile").exists());
     }
 
     @Test
     @DisplayName("뿌리기 API BAD_REQUEST(400) - Empty Input 테스트")
     void share_400_empty_input() throws Exception {
-        shareDto = ShareDto.builder().build();
+
+        ShareDto shareDto = ShareDto.builder().build();
+
         mockMvc.perform(post("/api/share")
                 .header(CustomHeaders.ROOM_ID, "a")
                 .header(CustomHeaders.USER_ID, 1L)
@@ -75,6 +69,9 @@ class ShareRestApiControllerTest {
     @Test
     @DisplayName("뿌리기 API BAD_REQUEST(400) - Missing Header 테스트")
     void share_400_missing_header() throws Exception {
+
+        ShareDto shareDto = createShareDto();
+
         mockMvc.perform(post("/api/share")
                 .header(CustomHeaders.USER_ID, 1L)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,4 +81,10 @@ class ShareRestApiControllerTest {
 
     }
 
+    private ShareDto createShareDto() {
+        return ShareDto.builder()
+                .money(10000L)
+                .count(3)
+                .build();
+    }
 }

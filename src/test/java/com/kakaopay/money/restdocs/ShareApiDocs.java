@@ -1,4 +1,4 @@
-package com.kakaopay.money.docs;
+package com.kakaopay.money.restdocs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaopay.money.constant.CustomHeaders;
@@ -17,10 +17,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class SearchApiDocs extends CommonApiDocs{
+public class ShareApiDocs extends CommonApiDocs {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -37,25 +35,15 @@ public class SearchApiDocs extends CommonApiDocs{
     }
 
     @Test
-    @DisplayName("조회 API REST DOCS 생성 테스트 코드")
-    void search() throws Exception {
+    @DisplayName("뿌리기 API REST DOCS 생성 테스트 코드")
+    void share() throws Exception {
         this.mockMvc.perform(post("/api/share")
                 .header(CustomHeaders.ROOM_ID, "a")
                 .header(CustomHeaders.USER_ID, 1L)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON_VALUE)
                 .content(objectMapper.writeValueAsBytes(shareDto)))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("token").exists())
-                .andExpect(header().exists(CustomHeaders.ROOM_ID))
-                .andExpect(header().exists(CustomHeaders.USER_ID))
-                .andExpect(header().exists(CustomHeaders.LOCATION))
-                .andExpect(header().string(CustomHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_VALUE))
-                .andExpect(jsonPath("_links.self").exists())
-                .andExpect(jsonPath("_links.share").exists())
-                .andExpect(jsonPath("_links.search").exists())
-                .andDo(document("search-money",
+                .andDo(document("share",
                         preprocessRequest(
                                 prettyPrint()
                         ),
@@ -65,7 +53,8 @@ public class SearchApiDocs extends CommonApiDocs{
                         links(
                                 linkWithRel("self").description("self"),
                                 linkWithRel("share").description("뿌리기"),
-                                linkWithRel("search").description("조회")
+                                linkWithRel("search").description("조회"),
+                                linkWithRel("profile").description("profile")
                         ),
                         requestHeaders(
                                 headerWithName(CustomHeaders.ACCEPT).description("accept header"),
@@ -76,6 +65,7 @@ public class SearchApiDocs extends CommonApiDocs{
                         requestFields(
                                 fieldWithPath("money").description("금액"),
                                 fieldWithPath("count").description("인원")
+
                         ),
                         responseHeaders(
                                 headerWithName(CustomHeaders.LOCATION).description("location header"),
@@ -92,7 +82,8 @@ public class SearchApiDocs extends CommonApiDocs{
                                 fieldWithPath("created_at").description("뿌린 날짜"),
                                 fieldWithPath("_links.self.href").description("_links.self"),
                                 fieldWithPath("_links.share.href").description("_links.share.href"),
-                                fieldWithPath("_links.search.href").description("_links.search.href")
+                                fieldWithPath("_links.search.href").description("_links.search.href"),
+                                fieldWithPath("_links.profile.href").description("_links.profile")
                         )
                 ));
     }

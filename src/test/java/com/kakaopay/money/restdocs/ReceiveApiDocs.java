@@ -1,3 +1,4 @@
+/*
 package com.kakaopay.money.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +19,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-public class ShareApiDocs extends CommonApiDocs {
+public class ReceiveApiDocs extends CommonApiDocs {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -35,15 +36,15 @@ public class ShareApiDocs extends CommonApiDocs {
     }
 
     @Test
-    @DisplayName("뿌리기 API REST DOCS 생성 테스트 코드")
-    void share() throws Exception {
+    @DisplayName("받기 API REST DOCS 생성 테스트 코드")
+    void receive() throws Exception {
         this.mockMvc.perform(post("/api/share")
                 .header(CustomHeaders.ROOM_ID, "a")
                 .header(CustomHeaders.USER_ID, 1L)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON_VALUE)
                 .content(objectMapper.writeValueAsBytes(shareDto)))
-                .andDo(document("share",
+                .andDo(document("receive-money",
                         preprocessRequest(
                                 prettyPrint()
                         ),
@@ -65,7 +66,6 @@ public class ShareApiDocs extends CommonApiDocs {
                         requestFields(
                                 fieldWithPath("money").description("금액"),
                                 fieldWithPath("count").description("인원")
-
                         ),
                         responseHeaders(
                                 headerWithName(CustomHeaders.LOCATION).description("location header"),
@@ -88,3 +88,4 @@ public class ShareApiDocs extends CommonApiDocs {
                 ));
     }
 }
+*/

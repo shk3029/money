@@ -1,4 +1,4 @@
-package com.kakaopay.money.docs;
+package com.kakaopay.money.restdocs;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,8 +21,8 @@ public class CommonApiDocs {
 
     @BeforeEach
     @DisplayName("mockMvc 초기세팅")
-    void setShareDto(WebApplicationContext webApplicationContext,
-                     RestDocumentationContextProvider restDocumentationContextProvider) {
+    void setUp(WebApplicationContext webApplicationContext,
+               RestDocumentationContextProvider restDocumentationContextProvider) {
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(

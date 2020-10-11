@@ -1,6 +1,5 @@
-package com.kakaopay.money.share;
+package com.kakaopay.money.share.entity;
 
-import com.kakaopay.money.share.entity.Share;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,8 @@ class ShareTest {
     void create() {
         Share share = Share.builder()
                 .token("Cab")
-                .room_id("K")
-                .user_id(1L)
+                .roomId("K")
+                .userId(1L)
                 .money(10000L)
                 .count(3)
                 .build();

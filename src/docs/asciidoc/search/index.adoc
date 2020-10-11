@@ -3,7 +3,7 @@
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toc-title:  조회 API
+:toc-title:  조회 REST API
 :sectlinks:
 
 [메인 페이지]
@@ -13,29 +13,4 @@
 [[resources-search]]
 == 조회 API
 `GET` 요청을 사용하여 뿌리기 내역을 조회할 수 있다.
-
-
-== Request
-
-=== Request Headers
-include::{snippets}/search-money/request-headers.adoc[]
-
-=== Request Fields
-include::{snippets}/search-money/request-fields.adoc[]
-
-=== HTTP Request
-include::{snippets}/search-money/http-request.adoc[]
-
----
-
-== Response
-
-=== Response Headers
-include::{snippets}/search-money/response-headers.adoc[]
-
-=== Response Fields
-include::{snippets}/search-money/response-fields.adoc[]
-
-=== HTTP Response
-include::{snippets}/search-money/http-response.adoc[]
 

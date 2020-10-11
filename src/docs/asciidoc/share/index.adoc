@@ -3,7 +3,7 @@
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toc-title:  뿌리기 API
+:toc-title:  뿌리기 REST API
 :sectlinks:
 
 [메인 페이지]
@@ -18,25 +18,25 @@
 == Request
 
 === Request Headers
-include::{snippets}/share-money/request-headers.adoc[]
+include::{snippets}/share/request-headers.adoc[]
 
 === Request Fields
-include::{snippets}/share-money/request-fields.adoc[]
+include::{snippets}/share/request-fields.adoc[]
 
 === HTTP Request
-include::{snippets}/share-money/http-request.adoc[]
+include::{snippets}/share/http-request.adoc[]
 
 ---
 
 == Response
 
 === Response Headers
-include::{snippets}/share-money/response-headers.adoc[]
+include::{snippets}/share/response-headers.adoc[]
 
 === Response Fields
-include::{snippets}/share-money/response-fields.adoc[]
+include::{snippets}/share/response-fields.adoc[]
 
 === HTTP Response
-include::{snippets}/share-money/http-response.adoc[]
+include::{snippets}/share/http-response.adoc[]
 
 
