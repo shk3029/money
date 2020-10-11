@@ -3,12 +3,13 @@ package com.kakaopay.money.share.controller;
 
 import com.kakaopay.money.constant.CustomHeaders;
 import com.kakaopay.money.constant.ShareType;
+import com.kakaopay.money.share.dto.ReceiveDto;
 import com.kakaopay.money.share.dto.SearchDto;
 import com.kakaopay.money.share.dto.ShareDto;
 import com.kakaopay.money.share.entity.Receive;
 import com.kakaopay.money.share.entity.Share;
 import com.kakaopay.money.share.mapper.ShareMapper;
-import com.kakaopay.money.share.service.ShareService;
+import com.kakaopay.money.share.service.ShareRestApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.EntityModel;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -31,7 +34,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequiredArgsConstructor
 public class ShareRestApiController {
 
-    private final ShareService shareService;
+    private final ShareRestApiService shareRestApiService;
 
     @PostMapping
     public ResponseEntity<EntityModel<Share>> shareMoney(
@@ -48,7 +51,7 @@ public class ShareRestApiController {
         share.setRoomId(roomId);
         share.setShareType(ShareType.EQUITY);
 
-        Share savedShare = shareService.share(share);
+        Share savedShare = shareRestApiService.share(share);
 
         return ResponseEntity
                 .created(linkTo(ShareRestApiController.class).slash(savedShare.getToken()).toUri())
@@ -66,21 +69,24 @@ public class ShareRestApiController {
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
 
-        Share share = shareService.search(token).orElse(new Share());
+        Share share = shareRestApiService.search(token).orElse(new Share());
 
+        // 토큰이 존재하지 않으면 Not Found
         if (StringUtils.isEmpty(share.getToken())) {
             return ResponseEntity.notFound().build();
         }
 
+        // 뿌린 사람이 아니면 Not Found
         if (share.getUserId().longValue() != userId) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
 
+        // 7일이 지났으면 Not Found
         if (LocalDateTime.now().isAfter(share.getCreatedAt().plusDays(7))) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
 
-        SearchDto searchDto = shareService.shareToSearchDto(share);
+        SearchDto searchDto = shareToSearchDto(share);
 
         return ResponseEntity
                 .ok()
@@ -91,15 +97,55 @@ public class ShareRestApiController {
     }
 
     @PutMapping("/{token}")
-    public  ResponseEntity<EntityModel<Receive>> receiveMoeny(
+    public ResponseEntity<EntityModel<ReceiveDto>> receiveMoeny(
             @PathVariable String token,
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
+
+        List<Receive> receiveList = shareRestApiService.findReceiveList(token, roomId);
+
+        System.out.println(receiveList);
+
+        // 현재 대화방 ID와 토큰값으로 뿌려진 돈이 없다
+        if (receiveList.isEmpty()) {
+            System.out.println("뿌려진 돈이 없다 ");
+            return ResponseEntity.notFound().build();
+        }
+
+        // 자신이 뿌린거 받을려고 할때 익셉션
+        if (shareRestApiService.isSelfReceive(token, userId)) {
+            System.out.println("내가 뿌린건 받을 수 없다");
+            return ResponseEntity.badRequest().build();
+        }
+
+        // 현재 토큰값으로 뿌려진 뿌리기가 10분이 지난 경우
+        if (shareRestApiService.isTimeOverToken(token)) {
+            System.out.println("해당 뿌리기는 10분이 지났다");
+            return ResponseEntity.badRequest().build();
+        }
+
+        // 한 사용자가 같은 토큰의 뿌린 값을 가져가려고 할때 익셉션
+        if (shareRestApiService.isDuplicatedUserReceive(receiveList, userId)) {
+            System.out.println("이 사용자는 이미 받았따");
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Receive> receiveOptional = receiveList.stream()
+                .filter(receive -> !receive.isReceived())
+                .findFirst();
+
+        receiveOptional.ifPresent(receive -> {
+            receive.setToken(token);
+            receive.setUserId(userId);
+            receive.setReceived(true);
+            shareRestApiService.receive(receive);
+        });
+
+        ReceiveDto receiveDto = receiveToReceiveDto(receiveOptional.orElse(new Receive()));
+
         return ResponseEntity
-                .ok(EntityModel.of(new Receive()));
+                .ok(EntityModel.of(receiveDto));
     }
-
-
 
 
     private CustomHeaders getCustomHeaders(Long userId, String roomId) {
@@ -108,6 +154,29 @@ public class ShareRestApiController {
         customHeaders.setRoomId(roomId);
         return customHeaders;
     }
+
+
+    private SearchDto shareToSearchDto(Share share) {
+        SearchDto searchDto = new SearchDto();
+        searchDto.setMoney(share.getMoney());
+        searchDto.setCreatedAt(share.getCreatedAt());
+
+        share.getReceiveList().stream()
+                .filter(receive -> receive.isReceived())
+                .forEachOrdered(receive -> searchDto.setSearchDto(receive));
+
+        searchDto.sumReceivedMoney();
+        return searchDto;
+    }
+
+    private ReceiveDto receiveToReceiveDto(Receive receive) {
+        ReceiveDto receiveDto = new ReceiveDto();
+        receiveDto.setMoney(receive.getMoney());
+        receiveDto.setUserId(receive.getUserId());
+        return receiveDto;
+    }
+
+
 }
 
 

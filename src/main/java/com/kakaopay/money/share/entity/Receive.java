@@ -33,8 +33,9 @@ public class Receive {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "received_at")
-    private LocalDateTime receivedAt = LocalDateTime.now();
+    @NonNull
+    @Column(name = "room_id")
+    private String roomId;
 
     @Column(name = "is_received")
     private boolean isReceived;
