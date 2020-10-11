@@ -4,14 +4,45 @@
 <div id="toc" class="toc2">
 <div id="toctitle">뿌리기 REST API</div>
 <ul class="sectlevel1">
+<li><a href="#api-type">API 목록</a></li>
 <li><a href="#overview-http-verbs">HTTP 동사</a></li>
 <li><a href="#overview-http-status-codes">HTTP 상태 코드</a></li>
 <li><a href="#overview-errors">Exception</a></li>
-<li><a href="#api-type">API 목록</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+
+<div class="sect1">
+<h2 id="api-type"><a class="link" href="#api-type">API 목록</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/share.md">/SHARE</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">뿌리기 API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/receive.md">/RECEIVE</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">받기 API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/search.md">/SEARCH</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조회 API</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="overview-http-verbs"><a class="link" href="#overview-http-verbs">HTTP 동사</a></h2>
 <div class="sectionbody">
@@ -132,36 +163,6 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="api-type"><a class="link" href="#api-type">API 목록</a></h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">설명</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="share/index.html#resources-share">/SHARE</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">뿌리기 API</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="receive/index.html#resources-receive">/RECEIVE</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">받기 API</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="search/index.html#resources-search">/SEARCH</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">조회 API</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 <div id="footer">

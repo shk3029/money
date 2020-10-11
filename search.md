@@ -4,7 +4,7 @@
 <div id="toc" class="toc2">
 <div id="toctitle">조회 REST API</div>
 <ul class="sectlevel1">
-<li><a href="#_%EB%A9%94%EC%9D%B8_%ED%8E%98%EC%9D%B4%EC%A7%80">메인 페이지</a></li>
+<li><a href="https://github.com/shk3029/money/blob/master/index.md">메인 페이지</a></li>
 <li><a href="#resources-search">조회 API</a></li>
 <li><a href="#_request">Request</a>
 <ul class="sectlevel2">
@@ -27,7 +27,7 @@
 <h2 id="_메인_페이지"><a class="link" href="#_%EB%A9%94%EC%9D%B8_%ED%8E%98%EC%9D%B4%EC%A7%80">메인 페이지</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>| <a href="/docs/index.html">Main</a></p>
+<p>| <a href="https://github.com/shk3029/money/blob/master/index.md">Main</a></p>
 </div>
 </div>
 </div>
