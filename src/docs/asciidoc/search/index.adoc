@@ -14,3 +14,23 @@
 == 조회 API
 `GET` 요청을 사용하여 뿌리기 내역을 조회할 수 있다.
 
+== Request
+
+=== Request Headers
+include::{snippets}/search/request-headers.adoc[]
+
+=== Request Fields
+include::{snippets}/search/path-parameters.adoc[]
+
+=== HTTP Request
+include::{snippets}/search/http-request.adoc[]
+
+---
+
+== Response
+
+=== Response Fields
+include::{snippets}/search/response-fields.adoc[]
+
+=== HTTP Response
+include::{snippets}/search/http-response.adoc[]
