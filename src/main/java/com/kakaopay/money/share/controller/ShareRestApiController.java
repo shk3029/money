@@ -1,10 +1,7 @@
 package com.kakaopay.money.share.controller;
 
 
-import com.kakaopay.money.advice.exception.RecevieAccessDeniedException;
 import com.kakaopay.money.advice.exception.RequiredParameterNotFoundException;
-import com.kakaopay.money.advice.exception.TimeOverException;
-import com.kakaopay.money.advice.exception.TokenNotFoundException;
 import com.kakaopay.money.constant.CustomHeaders;
 import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.share.dto.ReceiveDto;
@@ -20,12 +17,10 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
