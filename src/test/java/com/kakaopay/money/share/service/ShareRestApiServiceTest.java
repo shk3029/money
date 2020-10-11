@@ -1,7 +1,6 @@
 package com.kakaopay.money.share.service;
 
 import com.kakaopay.money.constant.ShareType;
-import com.kakaopay.money.share.entity.Receive;
 import com.kakaopay.money.share.entity.Share;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
@@ -15,8 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -77,28 +74,5 @@ class ShareRestApiServiceTest {
         share.setCreatedAt(LocalDateTime.now().minusMinutes(9));
         shareRestApiService.share(this.share);
         Assertions.assertFalse(shareRestApiService.isTimeOverToken(share.getToken()));
-    }
-
-    @Test
-    @DisplayName("받기 비지니스 로직 테스트 3: 한 사용자가 뿌린 값을 또 가져가면 True, 아니면 False")
-    void isDuplicatedUserReceive() {
-        long userId = 10l;
-        shareRestApiService.share(this.share);
-        List<Receive> receiveList = shareRestApiService.findReceiveList(share.getToken(), share.getRoomId());
-
-        Assertions.assertFalse(shareRestApiService.isDuplicatedUserReceive(receiveList,userId));
-
-        Optional<Receive> receiveOptional = receiveList.stream()
-                .filter(receive -> !receive.isReceived())
-                .findFirst();
-
-        receiveOptional.ifPresent(receive -> {
-            receive.setToken(share.getToken());
-            receive.setUserId(userId);
-            receive.setReceived(true);
-            shareRestApiService.receive(receive);
-        });
-
-        Assertions.assertTrue(shareRestApiService.isDuplicatedUserReceive(receiveList,userId));
     }
 }

@@ -71,12 +71,7 @@ public class ShareRestApiController {
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
 
-        Share share = shareRestApiService.search(token).orElse(new Share());
-
-        if (StringUtils.isEmpty(share.getToken())) throw new TokenNotFoundException();
-        if (share.getUserId().longValue() != userId) throw new RecevieAccessDeniedException();
-        if (LocalDateTime.now().isAfter(share.getCreatedAt().plusDays(7))) throw new TimeOverException("7일");
-
+        Share share = shareRestApiService.search(token, userId);
         SearchDto searchDto = shareToSearchDto(share);
 
         return ResponseEntity
@@ -93,12 +88,7 @@ public class ShareRestApiController {
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
 
-        List<Receive> receiveList = shareRestApiService.findReceiveList(token, roomId);
-
-        if (receiveList.isEmpty()) throw new TokenNotFoundException("토큰이 존재하지 않거나 현재 대화방이 다릅니다");
-        if (shareRestApiService.isSelfReceive(token, userId)) throw new RecevieAccessDeniedException("본인이 뿌린 돈을 받을 수 없습니다");
-        if (shareRestApiService.isTimeOverToken(token)) throw new TimeOverException("10분");
-        if (shareRestApiService.isDuplicatedUserReceive(receiveList, userId)) throw new RecevieAccessDeniedException("중복해서 받을 수 없습니다");
+        List<Receive> receiveList = shareRestApiService.findReceiveList(token, roomId, userId);
 
         Optional<Receive> receiveOptional = receiveList.stream()
                 .filter(receive -> !receive.isReceived())
