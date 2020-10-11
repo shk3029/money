@@ -1,17 +1,11 @@
 package com.kakaopay.money.restdocs;
 
 import com.kakaopay.money.constant.CustomHeaders;
-import com.kakaopay.money.constant.ShareType;
-import com.kakaopay.money.share.entity.Share;
-import com.kakaopay.money.share.service.ShareService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.restdocs.payload.JsonFieldType;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -27,33 +21,18 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 
 public class SearchApiDocs extends CommonApiDocs {
 
-    @Autowired
-    private ShareService shareService;
-
-    private Share share;
-
-    @BeforeEach
-    @DisplayName("Share 인스턴스 생성")
-    void setShareDto() {
-        Share s = new Share();
-        s.setMoney(10000L);
-        s.setCount(3);
-        s.setUserId(1L);
-        s.setRoomId("a");
-        s.setShareType(ShareType.EQUITY);
-        share = shareService.share(s);
-    }
-
     @Test
     @DisplayName("조회 API REST DOCS 생성 테스트 코드")
     void search() throws Exception {
-        System.out.println(share);
+
+        saveShare();
+
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders.get("/api/share/{token}", share.getToken())
-                .accept(MediaTypes.HAL_JSON_VALUE)
-                .header(CustomHeaders.ROOM_ID, "a")
-                .header(CustomHeaders.USER_ID, 1L)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .accept(MediaTypes.HAL_JSON_VALUE)
+                        .header(CustomHeaders.ROOM_ID, REQUEST_HEADER_ROOM_ID)
+                        .header(CustomHeaders.USER_ID, REQUEST_HEADER_USER_ID)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(document("search",
                         preprocessRequest(
                                 prettyPrint()

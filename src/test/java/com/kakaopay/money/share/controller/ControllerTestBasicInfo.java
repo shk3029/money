@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 class ControllerTestBasicInfo {
 
-    static final Long REQUEST_HEADER_USER_ID = 1l;
-    static final String REQUEST_HEADER_ROOM_ID = "a";
+    final Long REQUEST_HEADER_USER_ID = 1l;
+    final String REQUEST_HEADER_ROOM_ID = "a";
 
     @Autowired
     protected MockMvc mockMvc;

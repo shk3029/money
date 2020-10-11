@@ -104,29 +104,23 @@ public class ShareRestApiController {
 
         List<Receive> receiveList = shareRestApiService.findReceiveList(token, roomId);
 
-        System.out.println(receiveList);
-
         // 현재 대화방 ID와 토큰값으로 뿌려진 돈이 없다
         if (receiveList.isEmpty()) {
-            System.out.println("뿌려진 돈이 없다 ");
             return ResponseEntity.notFound().build();
         }
 
         // 자신이 뿌린거 받을려고 할때 익셉션
         if (shareRestApiService.isSelfReceive(token, userId)) {
-            System.out.println("내가 뿌린건 받을 수 없다");
             return ResponseEntity.badRequest().build();
         }
 
         // 현재 토큰값으로 뿌려진 뿌리기가 10분이 지난 경우
         if (shareRestApiService.isTimeOverToken(token)) {
-            System.out.println("해당 뿌리기는 10분이 지났다");
             return ResponseEntity.badRequest().build();
         }
 
         // 한 사용자가 같은 토큰의 뿌린 값을 가져가려고 할때 익셉션
         if (shareRestApiService.isDuplicatedUserReceive(receiveList, userId)) {
-            System.out.println("이 사용자는 이미 받았따");
             return ResponseEntity.badRequest().build();
         }
 
@@ -144,7 +138,11 @@ public class ShareRestApiController {
         ReceiveDto receiveDto = receiveToReceiveDto(receiveOptional.orElse(new Receive()));
 
         return ResponseEntity
-                .ok(EntityModel.of(receiveDto));
+                .ok()
+                .headers(getCustomHeaders(userId, roomId))
+                .body(EntityModel.of(receiveDto)
+                    .add(linkTo(methodOn(ShareRestApiController.class).receiveMoeny(token, userId, roomId)).withSelfRel())
+                    .add(Link.of("/docs/receive/index.html#resources-receive").withRel("profile")));
     }
 
 

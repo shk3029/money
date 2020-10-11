@@ -1,14 +1,13 @@
 package com.kakaopay.money.restdocs;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaopay.money.constant.CustomHeaders;
 import com.kakaopay.money.share.dto.ShareDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
@@ -16,12 +15,8 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 public class ShareApiDocs extends CommonApiDocs {
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     private ShareDto shareDto;
 
@@ -37,12 +32,13 @@ public class ShareApiDocs extends CommonApiDocs {
     @Test
     @DisplayName("뿌리기 API REST DOCS 생성 테스트 코드")
     void share() throws Exception {
-        this.mockMvc.perform(post("/api/share")
-                .header(CustomHeaders.ROOM_ID, "a")
-                .header(CustomHeaders.USER_ID, 1L)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_JSON_VALUE)
-                .content(objectMapper.writeValueAsBytes(shareDto)))
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders.post("/api/share")
+                        .header(CustomHeaders.ROOM_ID, REQUEST_HEADER_ROOM_ID)
+                        .header(CustomHeaders.USER_ID, REQUEST_HEADER_USER_ID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaTypes.HAL_JSON_VALUE)
+                        .content(objectMapper.writeValueAsBytes(shareDto)))
                 .andDo(document("share",
                         preprocessRequest(
                                 prettyPrint()
@@ -73,13 +69,13 @@ public class ShareApiDocs extends CommonApiDocs {
                         ),
                         responseFields(
                                 fieldWithPath("token").description("고유한 토큰값 (영문 3자리)"),
-                                fieldWithPath("user_id").description("사용자 id"),
-                                fieldWithPath("room_id").description("대화방 id"),
+                                fieldWithPath("userId").description("사용자 id"),
+                                fieldWithPath("roomId").description("대화방 id"),
                                 fieldWithPath("money").description("금액"),
                                 fieldWithPath("count").description("인원"),
                                 fieldWithPath("shareType").description("뿌리는 타입"),
                                 fieldWithPath("receiveList").description("받은 사람들"),
-                                fieldWithPath("created_at").description("뿌린 날짜"),
+                                fieldWithPath("createdAt").description("뿌린 날짜"),
                                 fieldWithPath("_links.self.href").description("_links.self"),
                                 fieldWithPath("_links.share.href").description("_links.share.href"),
                                 fieldWithPath("_links.search.href").description("_links.search.href"),
