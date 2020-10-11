@@ -10,7 +10,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ShareType {
 
-    FIRST("선착순", EquityDistributer.getInstance()),
     EQUITY("1/N", EquityDistributer.getInstance()),
     RANDOM("랜덤", RandomDistributer.getInstance());
 
