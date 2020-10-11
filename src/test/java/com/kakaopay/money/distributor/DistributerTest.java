@@ -11,14 +11,14 @@ class DistributerTest {
 
     @Test
     @DisplayName("분배로직 1) 10000원을 3명에게 랜덤으로 분배")
-    void randomSharer() {
+    void random() {
         distributer = ShareType.RANDOM.getDistributer();
-        distributer.distribute(10000l, 3);
+        distributer.distribute(100000l, 1000);
     }
 
     @Test
     @DisplayName("분배로직 2) 10000원을 3명에게 공정하게 분배, 나머지가 0이 아니면 마지막 사람에게 더해준다")
-    void equiltySharer() {
+    void equilty() {
         distributer = ShareType.EQUITY.getDistributer();
         long[] moneyArr = distributer.distribute(10000l, 3);
         long[] result = {3333,3333,3334};

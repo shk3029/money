@@ -44,10 +44,10 @@ public class ReceiveApiDocs extends CommonApiDocs {
                                 linkWithRel("profile").description("profile")
                         ),
                         requestHeaders(
-                                headerWithName(CustomHeaders.ACCEPT).description("accept header"),
-                                headerWithName(CustomHeaders.CONTENT_TYPE).description("content type header"),
-                                headerWithName(CustomHeaders.USER_ID).description("user_id header"),
-                                headerWithName(CustomHeaders.ROOM_ID).description("room_id header")
+                                headerWithName(CustomHeaders.ACCEPT).description("application hal+json"),
+                                headerWithName(CustomHeaders.CONTENT_TYPE).description("application json"),
+                                headerWithName(CustomHeaders.USER_ID).description("user_id"),
+                                headerWithName(CustomHeaders.ROOM_ID).description("room_id")
                         ),
                         pathParameters(
                                 parameterWithName("token").description("토큰")

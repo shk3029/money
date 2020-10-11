@@ -53,10 +53,10 @@ public class ShareApiDocs extends CommonApiDocs {
                                 linkWithRel("profile").description("profile")
                         ),
                         requestHeaders(
-                                headerWithName(CustomHeaders.ACCEPT).description("accept header"),
-                                headerWithName(CustomHeaders.CONTENT_TYPE).description("content type header"),
-                                headerWithName(CustomHeaders.USER_ID).description("user_id header"),
-                                headerWithName(CustomHeaders.ROOM_ID).description("room_id header")
+                                headerWithName(CustomHeaders.ACCEPT).description("application hal+json"),
+                                headerWithName(CustomHeaders.CONTENT_TYPE).description("application json"),
+                                headerWithName(CustomHeaders.USER_ID).description("user_id"),
+                                headerWithName(CustomHeaders.ROOM_ID).description("room_id")
                         ),
                         requestFields(
                                 fieldWithPath("money").description("금액"),
@@ -64,8 +64,8 @@ public class ShareApiDocs extends CommonApiDocs {
 
                         ),
                         responseHeaders(
-                                headerWithName(CustomHeaders.LOCATION).description("location header"),
-                                headerWithName(CustomHeaders.CONTENT_TYPE).description("content type header")
+                                headerWithName(CustomHeaders.LOCATION).description("http://{}/api/share/Xkb"),
+                                headerWithName(CustomHeaders.CONTENT_TYPE).description("application/hal+json")
                         ),
                         responseFields(
                                 fieldWithPath("token").description("고유한 토큰값 (영문 3자리)"),

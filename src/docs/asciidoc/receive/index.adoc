@@ -13,3 +13,24 @@
 [[resources-receive]]
 == 받기 API
 `PUT` 요청을 사용해서 뿌린 돈을 받을 수 있다.
+
+== Request
+
+=== Request Headers
+include::{snippets}/receive/request-headers.adoc[]
+
+=== Request Fields
+include::{snippets}/receive/path-parameters.adoc[]
+
+=== HTTP Request
+include::{snippets}/receive/http-request.adoc[]
+
+---
+
+== Response
+
+=== Response Fields
+include::{snippets}/receive/response-fields.adoc[]
+
+=== HTTP Response
+include::{snippets}/receive/http-response.adoc[]

@@ -36,7 +36,7 @@ public class ShareRestApiController {
     private final ShareRestApiService shareRestApiService;
 
     @PostMapping
-    public ResponseEntity<EntityModel<Share>> shareMoney(
+    public ResponseEntity<EntityModel<Share>> share(
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId,
             @RequestBody @Valid ShareDto shareDto, Errors errors) {
@@ -54,14 +54,14 @@ public class ShareRestApiController {
                 .created(linkTo(ShareRestApiController.class).slash(savedShare.getToken()).toUri())
                 .headers(getCustomHeaders(userId, roomId))
                 .body(EntityModel.of(savedShare)
-                        .add(linkTo(methodOn(ShareRestApiController.class).shareMoney(userId, roomId, shareDto, errors)).withSelfRel())
-                        .add(linkTo(methodOn(ShareRestApiController.class).shareMoney(userId, roomId, shareDto, errors)).slash(savedShare.getToken()).withRel("share"))
-                        .add(linkTo(methodOn(ShareRestApiController.class).searchMoney(share.getToken(), userId, roomId)).slash(savedShare.getToken()).withRel("search"))
+                        .add(linkTo(methodOn(ShareRestApiController.class).share(userId, roomId, shareDto, errors)).withSelfRel())
+                        .add(linkTo(methodOn(ShareRestApiController.class).share(userId, roomId, shareDto, errors)).slash(savedShare.getToken()).withRel("share"))
+                        .add(linkTo(methodOn(ShareRestApiController.class).search(share.getToken(), userId, roomId)).slash(savedShare.getToken()).withRel("search"))
                         .add(Link.of("/docs/share/index.html#resources-share").withRel("profile")));
     }
 
     @GetMapping("/{token}")
-    public ResponseEntity<EntityModel<SearchDto>> searchMoney(
+    public ResponseEntity<EntityModel<SearchDto>> search(
             @PathVariable String token,
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
@@ -73,12 +73,12 @@ public class ShareRestApiController {
                 .ok()
                 .headers(getCustomHeaders(userId, roomId))
                 .body(EntityModel.of(searchDto)
-                        .add(linkTo(methodOn(ShareRestApiController.class).searchMoney(token, userId, roomId)).withSelfRel())
+                        .add(linkTo(methodOn(ShareRestApiController.class).search(token, userId, roomId)).withSelfRel())
                         .add(Link.of("/docs/search/index.html#resources-search").withRel("profile")));
     }
 
     @PutMapping("/{token}")
-    public ResponseEntity<EntityModel<ReceiveDto>> receiveMoeny(
+    public ResponseEntity<EntityModel<ReceiveDto>> receive(
             @PathVariable String token,
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
@@ -102,7 +102,7 @@ public class ShareRestApiController {
                 .ok()
                 .headers(getCustomHeaders(userId, roomId))
                 .body(EntityModel.of(receiveDto)
-                    .add(linkTo(methodOn(ShareRestApiController.class).receiveMoeny(token, userId, roomId)).withSelfRel())
+                    .add(linkTo(methodOn(ShareRestApiController.class).receive(token, userId, roomId)).withSelfRel())
                     .add(Link.of("/docs/receive/index.html#resources-receive").withRel("profile")));
     }
 

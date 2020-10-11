@@ -9,7 +9,7 @@
 [[overview-http-verbs]]
 == HTTP 동사
 
-본 REST API에서 사용하는 HTTP 동사(verbs)는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
+본 REST API에서 사용하는 HTTP 동사는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
 
 |===
 | 동사 | 용례
@@ -47,25 +47,34 @@
 | `400 Bad Request`
 | 잘못된 요청을 보낸 경우. 응답 본문에 더 오류에 대한 정보가 담겨있다.
 
+| `403 Forbidden`
+| 인증된 클라이언트가 권한이 없는 자원에 접근할 때 응답하는 상태코드다.
+
 | `404 Not Found`
 | 요청한 리소스가 없음.
 |===
+
 [[overview-errors]]
-== 오류
+== Exception
 
-에러 응답이 발생했을 때 (상태 코드 >= 400), 본문에 해당 문제를 기술한 JSON 객체가 담겨있다. 에러 객체는 다음의 구조를 따른다.
+뿌리기 API에서 발생하는 Exception 종류와 설명이다.
+|===
+| Exception | 설명
 
+| `RecevieAccessDeniedException`
+| 조회 및 받기 권한이 없을 때 발생하는 익셉션
 
+| `RequiredParameterNotFoundException`
+| 필수 파라미터가 존재하지 않을 때 발생하는 익셉션
 
-예를 들어, 잘못된 요청으로 이벤트를 만들려고 했을 때 다음과 같은 `400 Bad Request` 응답을 받는다.
+| `TimeOverException`
+| 조회 및 받기 기간이 만료되었을 때 발생하는 익셉션
 
-[[overview-hypermedia]]
-== 하이퍼미디어
+| `TokenNotFoundException`
+| 토큰이 존재하지 않을 때 발생하는 익셉션
 
-본 REST API는 하이퍼미디어와 사용하며 응답에 담겨있는 리소스는 다른 리소스에 대한 링크를 가지고 있다.
-응답은 Hypertext Application from resource to resource. Language (HAL) 형식을 따른다.
-링크는 `_links`라는 키로 제공한다.
-본 API의 사용자(클라이언트)는 URI를 직접 생성하지 않아야 하며, 리소스에서 제공하는 링크를 사용해야 한다.
+|===
+
 
 [[api-type]]
 == API 목록
