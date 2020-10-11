@@ -2,7 +2,6 @@ package com.kakaopay.money.share.entity;
 
 import com.kakaopay.money.constant.ShareType;
 import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,10 +21,10 @@ public class Share {
     private String token;
 
     @Column(name = "user_id", nullable = false)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "room_id", nullable = false)
-    private String room_id;
+    private String roomId;
 
     @Column(name = "money", nullable = false)
     private Long money;
@@ -34,7 +33,7 @@ public class Share {
     private Integer count;
 
     @Column(name = "created_at")
-    private LocalDateTime created_at = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "share_type")
     @Enumerated(EnumType.STRING)

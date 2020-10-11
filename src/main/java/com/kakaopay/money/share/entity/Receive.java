@@ -1,6 +1,5 @@
 package com.kakaopay.money.share.entity;
 
-import com.kakaopay.money.share.entity.Share;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import java.util.Objects;
 
 @Builder @Getter @Setter @ToString
 @RequiredArgsConstructor @NoArgsConstructor @AllArgsConstructor
-@EqualsAndHashCode(of = "receive_id")
+@EqualsAndHashCode(of = "receiveId")
 @Entity
 @Table(name = "receive")
 public class Receive {
@@ -17,12 +16,11 @@ public class Receive {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "receive_id", nullable = false)
-    private Long receive_id;
+    private Long receiveId;
 
+    @Column(name = "token")
     @NonNull
-    @ManyToOne(targetEntity = Share.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "token")
-    private Share share;
+    private String token;
 
     @NonNull
     @Column(name = "sequence", nullable = false)
@@ -33,17 +31,11 @@ public class Receive {
     private Long money;
 
     @Column(name = "user_id")
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "received_at")
-    private LocalDateTime received_at = LocalDateTime.now();
+    private LocalDateTime receivedAt = LocalDateTime.now();
 
-    @Column(name = "isReceived")
+    @Column(name = "is_received")
     private boolean isReceived;
-
-    public void update() {
-        this.isReceived = Objects.nonNull(this.user_id);
-    }
-
-
 }

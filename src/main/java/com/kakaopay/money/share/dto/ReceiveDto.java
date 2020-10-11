@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
 @Builder @Data
 @NoArgsConstructor @AllArgsConstructor
-public class ShareDto {
+public class ReceiveDto {
 
-    @NotNull
+    private Long userId;
     private Long money;
-    @NotNull
-    private Integer count;
+
 }
