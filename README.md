@@ -15,13 +15,12 @@
 
 ### 상세 구현 요건 및 제약사항
 
-## 핵심 문제해결 전략
 
 ## 상세 구현 정보
+### 핵심 문제해결 전략
+
 ### 핵심 클래스 UML
 ![uml](https://user-images.githubusercontent.com/36438257/95719652-19fec500-0cab-11eb-8d8c-3874bbcea580.jpg)
 
-
 ### Database 
 
-###
