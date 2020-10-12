@@ -47,7 +47,7 @@
 <h2 id="overview-http-verbs"><a class="link" href="#overview-http-verbs">HTTP 동사</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>본 REST API에서 사용하는 HTTP 동사는 가능한한 표준 HTTP와 REST 규약을 따릅니다.</p>
+<p>뿌리기 REST API에서 사용하는 HTTP 동사는 가능한한 표준 HTTP와 REST 규약을 따릅니다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -85,7 +85,7 @@
 <h2 id="overview-http-status-codes"><a class="link" href="#overview-http-status-codes">HTTP 상태 코드</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>본 REST API에서 사용하는 HTTP 상태 코드는 가능한한 표준 HTTP와 REST 규약을 따릅니다.</p>
+<p>뿌리기 REST API에서 사용하는 HTTP 상태 코드는 가능한한 표준 HTTP와 REST 규약을 따릅니다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -131,7 +131,7 @@
 <h2 id="overview-errors"><a class="link" href="#overview-errors">Exception</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>뿌리기 API에서 발생하는 Exception 종류와 설명이다.</p>
+<p>뿌리기 REST API에서 발생하는 Exception 종류와 설명이다.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
