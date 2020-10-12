@@ -75,7 +75,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DELETE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">기존 리소스를 삭제할 떄 사용</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기존 리소스를 삭제할  사용</p></td>
 </tr>
 </tbody>
 </table>
