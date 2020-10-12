@@ -93,7 +93,8 @@
     ```
 
 * 테이블 관계
-    ![table](https://user-images.githubusercontent.com/36438257/95745476-1df10e00-0cd0-11eb-84de-47ebc6cf5162.png)
+
+![table](https://user-images.githubusercontent.com/36438257/95745476-1df10e00-0cd0-11eb-84de-47ebc6cf5162.png)
 
 ### 예제
 (자세한 요청/응답은 API REST DOCS 참고)
