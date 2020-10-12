@@ -1,14 +1,12 @@
 package com.kakaopay.money.share.controller;
 
 
-import com.kakaopay.money.advice.exception.ReceiveNotFoundException;
 import com.kakaopay.money.advice.exception.RequiredParameterNotFoundException;
 import com.kakaopay.money.constant.CustomHeaders;
 import com.kakaopay.money.constant.ShareType;
 import com.kakaopay.money.share.dto.ReceiveDto;
 import com.kakaopay.money.share.dto.SearchDto;
 import com.kakaopay.money.share.dto.ShareDto;
-import com.kakaopay.money.share.entity.Receive;
 import com.kakaopay.money.share.entity.Share;
 import com.kakaopay.money.share.mapper.ShareMapper;
 import com.kakaopay.money.share.service.ShareRestApiService;
@@ -22,8 +20,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -67,8 +63,7 @@ public class ShareRestApiController {
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
 
-        Share share = shareRestApiService.search(token, userId);
-        SearchDto searchDto = shareToSearchDto(share);
+        SearchDto searchDto = shareRestApiService.search(token, userId);
 
         return ResponseEntity
                 .ok()
@@ -84,20 +79,7 @@ public class ShareRestApiController {
             @RequestHeader(CustomHeaders.USER_ID) Long userId,
             @RequestHeader(CustomHeaders.ROOM_ID) String roomId) {
 
-        List<Receive> receiveList = shareRestApiService.findReceiveList(token, roomId, userId);
-
-        Optional<Receive> receiveOptional = receiveList.stream()
-                .filter(receive -> !receive.isReceived())
-                .findFirst();
-
-        receiveOptional.ifPresent(receive -> {
-            receive.setToken(token);
-            receive.setUserId(userId);
-            receive.setReceived(true);
-            shareRestApiService.receive(receive);
-        });
-
-        ReceiveDto receiveDto = receiveToReceiveDto(receiveOptional.orElseThrow(()->new ReceiveNotFoundException()));
+        ReceiveDto receiveDto = shareRestApiService.receive(token, roomId, userId);
 
         return ResponseEntity
                 .ok()
@@ -114,29 +96,6 @@ public class ShareRestApiController {
         customHeaders.setRoomId(roomId);
         return customHeaders;
     }
-
-
-    private SearchDto shareToSearchDto(Share share) {
-        SearchDto searchDto = new SearchDto();
-        searchDto.setMoney(share.getMoney());
-        searchDto.setCreatedAt(share.getCreatedAt());
-
-        share.getReceiveList().stream()
-                .filter(receive -> receive.isReceived())
-                .forEachOrdered(receive -> searchDto.setSearchDto(receive));
-
-        searchDto.sumReceivedMoney();
-        return searchDto;
-    }
-
-    private ReceiveDto receiveToReceiveDto(Receive receive) {
-        ReceiveDto receiveDto = new ReceiveDto();
-        receiveDto.setMoney(receive.getMoney());
-        receiveDto.setUserId(receive.getUserId());
-        return receiveDto;
-    }
-
-
 }
 
 

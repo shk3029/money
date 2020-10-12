@@ -1,9 +1,12 @@
 package com.kakaopay.money.share.service;
 
+import com.kakaopay.money.advice.exception.ReceiveNotFoundException;
 import com.kakaopay.money.advice.exception.RecevieAccessDeniedException;
 import com.kakaopay.money.advice.exception.TimeOverException;
 import com.kakaopay.money.advice.exception.TokenNotFoundException;
 import com.kakaopay.money.constant.TokenType;
+import com.kakaopay.money.share.dto.ReceiveDto;
+import com.kakaopay.money.share.dto.SearchDto;
 import com.kakaopay.money.share.entity.Receive;
 import com.kakaopay.money.share.entity.Share;
 import com.kakaopay.money.share.repository.ReceiveRepository;
@@ -45,25 +48,7 @@ public class ShareRestApiService {
     }
 
     @Transactional
-    public void receive(Receive receive) {
-        receiveRepository.save(receive);
-        Optional<Share> shareOptional = shareRepositroy.findById(receive.getToken());
-        shareOptional.ifPresent(share ->  {
-            share.getReceiveList().add(receive);
-            shareRepositroy.save(share);
-        });
-    }
-
-    public Share search(String token, Long userId) {
-        Share share = shareRepositroy.findById(token).orElse(new Share());
-        if (StringUtils.isEmpty(share.getToken())) throw new TokenNotFoundException();
-        if (share.getUserId().longValue() != userId) throw new RecevieAccessDeniedException();
-        if (LocalDateTime.now().isAfter(share.getCreatedAt().plusDays(7))) throw new TimeOverException("7일");
-        return share;
-    }
-
-    @Transactional
-    public List<Receive> findReceiveList(String token, String roomId, Long userId) {
+    public ReceiveDto receive(String token, String roomId, Long userId) {
         List<Optional<Receive>> receiveOptionalList = receiveRepository.
                 findAllByTokenAndRoomIdOrderBySequenceAsc(token, roomId);
 
@@ -76,7 +61,32 @@ public class ShareRestApiService {
         if (isTimeOverToken(token)) throw new TimeOverException("10분");
         if (isDuplicatedUserReceive(receiveList, userId)) throw new RecevieAccessDeniedException("중복해서 받을 수 없습니다");
 
-        return receiveList;
+        Optional<Receive> receiveOptional = receiveList.stream()
+                .filter(receive -> !receive.isReceived())
+                .findFirst();
+
+        receiveOptional.ifPresent(receive -> {
+            receive.setToken(token);
+            receive.setUserId(userId);
+            receive.setReceived(true);
+            receiveRepository.save(receive);
+            Optional<Share> shareOptional = shareRepositroy.findById(receive.getToken());
+            shareOptional.ifPresent(share ->  {
+                share.getReceiveList().add(receive);
+                shareRepositroy.save(share);
+            });
+        });
+
+        ReceiveDto receiveDto = receiveToReceiveDto(receiveOptional.orElseThrow(()->new ReceiveNotFoundException()));
+        return receiveDto;
+    }
+
+    public SearchDto search(String token, Long userId) {
+        Share share = shareRepositroy.findById(token).orElse(new Share());
+        if (StringUtils.isEmpty(share.getToken())) throw new TokenNotFoundException();
+        if (share.getUserId().longValue() != userId) throw new RecevieAccessDeniedException();
+        if (LocalDateTime.now().isAfter(share.getCreatedAt().plusDays(7))) throw new TimeOverException("7일");
+        return shareToSearchDto(share);
     }
 
     String generateToken() {
@@ -106,4 +116,23 @@ public class ShareRestApiService {
                 .anyMatch(user -> userId.equals(user));
     }
 
+    private SearchDto shareToSearchDto(Share share) {
+        SearchDto searchDto = new SearchDto();
+        searchDto.setMoney(share.getMoney());
+        searchDto.setCreatedAt(share.getCreatedAt());
+
+        share.getReceiveList().stream()
+                .filter(receive -> receive.isReceived())
+                .forEachOrdered(receive -> searchDto.setSearchDto(receive));
+
+        searchDto.sumReceivedMoney();
+        return searchDto;
+    }
+
+    private ReceiveDto receiveToReceiveDto(Receive receive) {
+        ReceiveDto receiveDto = new ReceiveDto();
+        receiveDto.setMoney(receive.getMoney());
+        receiveDto.setUserId(receive.getUserId());
+        return receiveDto;
+    }
 }
