@@ -282,11 +282,7 @@ Content-Type</span>: application/json
 </div>
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2020-10-11 12:53:41 KST
-</div>
-</div>
+
 
 
 
