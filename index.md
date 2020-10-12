@@ -161,6 +161,10 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>TokenNotFoundException</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">토큰이 존재하지 않을 때 발생하는 익셉션</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TokenNotFoundException</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대화방에 뿌려진 돈을 모두 받아가고 없을 때 발생하는 익셉션</p></td>
+</tr>
 </tbody>
 </table>
 </div>
