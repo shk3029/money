@@ -9,7 +9,7 @@
 [[overview-http-verbs]]
 == HTTP 동사
 
-본 REST API에서 사용하는 HTTP 동사는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
+뿌리기 REST API에서 사용하는 HTTP 동사는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
 
 |===
 | 동사 | 용례
@@ -30,7 +30,7 @@
 [[overview-http-status-codes]]
 == HTTP 상태 코드
 
-본 REST API에서 사용하는 HTTP 상태 코드는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
+뿌리기 REST API에서 사용하는 HTTP 상태 코드는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
 
 |===
 | 상태 코드 | 용례
@@ -57,22 +57,25 @@
 [[overview-errors]]
 == Exception
 
-뿌리기 API에서 발생하는 Exception 종류와 설명이다.
+뿌리기 REST API에서 발생하는 Exception 종류와 설명이다.
+
 |===
 | Exception | 설명
 
 | `RecevieAccessDeniedException`
-| 조회 및 받기 권한이 없을 때 발생하는 익셉션
+| 조회 및 받기 권한이 없을 때 발생하는 익셉션(403)
 
 | `RequiredParameterNotFoundException`
-| 필수 파라미터가 존재하지 않을 때 발생하는 익셉션
+| 필수 파라미터가 존재하지 않을 때 발생하는 익셉션(400)
 
 | `TimeOverException`
-| 조회 및 받기 기간이 만료되었을 때 발생하는 익셉션
+| 조회 및 받기 기간이 만료되었을 때 발생하는 익셉션(404)
 
 | `TokenNotFoundException`
-| 토큰이 존재하지 않을 때 발생하는 익셉션
+| 토큰이 존재하지 않을 때 발생하는 익셉션(404)
 
+| `ReceiveNotFoundException`
+| 대화방에 뿌려진 돈을 모두 받아가고 없을 때 발생하는 익셉션(404)
 |===
 
 
