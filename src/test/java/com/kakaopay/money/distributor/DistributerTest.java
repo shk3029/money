@@ -13,13 +13,12 @@ class DistributerTest {
 
 
     @Test
-    @DisplayName("분배로직 1) 10000원을 3명에게 랜덤으로 분배 (100% 비율을 랜덤으로 3등분하고, 금액에 적용한다")
+    @DisplayName("분배로직 1) 10000원을 5명에게 랜덤으로 분배")
     void random() {
         distributer = ShareType.RANDOM.getDistributer();
-        long[] moneyArr = distributer.distribute(10000l, 3);
-        Arrays.stream(moneyArr).asDoubleStream().forEach(num ->
-                Assertions.assertTrue(num > 0));
-        Assertions.assertEquals(moneyArr.length, 3);
+        long[] moneyArr = distributer.distribute(10000, 5);
+        Arrays.stream(moneyArr).asDoubleStream().forEach(x-> System.out.println(x));
+        Assertions.assertEquals(moneyArr.length, 5);
     }
 
 
