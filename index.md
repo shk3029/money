@@ -147,23 +147,23 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>RecevieAccessDeniedException</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">조회 및 받기 권한이 없을 때 발생하는 익셉션</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조회 및 받기 권한이 없을 때 발생하는 익셉션(403)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>RequiredParameterNotFoundException</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">필수 파라미터가 존재하지 않을 때 발생하는 익셉션</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필수 파라미터가 존재하지 않을 때 발생하는 익셉션(400)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>TimeOverException</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">조회 및 받기 기간이 만료되었을 때 발생하는 익셉션</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조회 및 받기 기간이 만료되었을 때 발생하는 익셉션(404)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>TokenNotFoundException</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">토큰이 존재하지 않을 때 발생하는 익셉션</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">토큰이 존재하지 않을 때 발생하는 익셉션(404)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ReceiveNotFoundException</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">대화방에 뿌려진 돈을 모두 받아가고 없을 때 발생하는 익셉션</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대화방에 뿌려진 돈을 모두 받아가고 없을 때 발생하는 익셉션(404)</p></td>
 </tr>
 </tbody>
 </table>
