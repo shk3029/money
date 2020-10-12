@@ -169,12 +169,6 @@
 </table>
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2020-10-11 22:39:38 KST
-</div>
-</div>
-
 
 
 
