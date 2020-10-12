@@ -58,19 +58,19 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Accept</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">application hal+json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/hal+json</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Content-Type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">application json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>X-USER-ID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user_id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 ID</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>X-ROOM-ID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">room_id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">대화방 ID</p></td>
 </tr>
 </tbody>
 </table>
