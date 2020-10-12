@@ -1,18 +1,12 @@
 # 카카오페이 뿌리기 API 
 
-### 뿌리기, 받기 , 조회 기능을 수행하는 REST API 
+## 뿌리기, 받기 , 조회 기능을 수행하는 REST API 
 
 ### Spring Rest Docs 
 <li><a href="https://github.com/shk3029/money/blob/master/index.md">  Index </a></li>
 <li><a href="https://github.com/shk3029/money/blob/master/share.md">  뿌리기 API </a></li>
 <li><a href="https://github.com/shk3029/money/blob/master/receive.md">  받기 API </a></li>
 <li><a href="https://github.com/shk3029/money/blob/master/search.md">  조회 API </a></li>
-
-### 핵심 문제해결 전략
-
-## 구현 설명
-* 중요 클래스정보 
-![uml](https://user-images.githubusercontent.com/36438257/95719652-19fec500-0cab-11eb-8d8c-3874bbcea580.jpg)
 
 ### 요구 사항
 * 뿌리기 API
@@ -21,4 +15,13 @@
 
 ### 상세 구현 요건 및 제약사항
 
+## 핵심 문제해결 전략
 
+## 상세 구현 정보
+### 핵심 클래스 UML
+![uml](https://user-images.githubusercontent.com/36438257/95719652-19fec500-0cab-11eb-8d8c-3874bbcea580.jpg)
+
+
+### Database 
+
+###
