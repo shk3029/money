@@ -11,6 +11,8 @@
 ### 핵심 문제해결 전략
 
 ## 구현 설명
+* 중요 클래스정보 
+![uml](https://user-images.githubusercontent.com/36438257/95719652-19fec500-0cab-11eb-8d8c-3874bbcea580.jpg)
 
 ### 요구 사항
 * 뿌리기 API
