@@ -1,6 +1,7 @@
 package com.kakaopay.money.share.controller;
 
 
+import com.kakaopay.money.advice.exception.ReceiveNotFoundException;
 import com.kakaopay.money.advice.exception.RequiredParameterNotFoundException;
 import com.kakaopay.money.constant.CustomHeaders;
 import com.kakaopay.money.constant.ShareType;
@@ -96,7 +97,7 @@ public class ShareRestApiController {
             shareRestApiService.receive(receive);
         });
 
-        ReceiveDto receiveDto = receiveToReceiveDto(receiveOptional.orElse(new Receive()));
+        ReceiveDto receiveDto = receiveToReceiveDto(receiveOptional.orElseThrow(()->new ReceiveNotFoundException()));
 
         return ResponseEntity
                 .ok()

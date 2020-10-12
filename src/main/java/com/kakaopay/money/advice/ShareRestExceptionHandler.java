@@ -1,9 +1,6 @@
 package com.kakaopay.money.advice;
 
-import com.kakaopay.money.advice.exception.RecevieAccessDeniedException;
-import com.kakaopay.money.advice.exception.RequiredParameterNotFoundException;
-import com.kakaopay.money.advice.exception.TimeOverException;
-import com.kakaopay.money.advice.exception.TokenNotFoundException;
+import com.kakaopay.money.advice.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +14,12 @@ public class ShareRestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(TokenNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     ResponseEntity check(TokenNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ReceiveNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ResponseEntity check(ReceiveNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
