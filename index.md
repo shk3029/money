@@ -4,7 +4,7 @@
 <div id="toc" class="toc2">
 <div id="toctitle">뿌리기 REST API</div>
 <ul class="sectlevel1">
-<li><a href="#api-type">API 목록</a></li>
+<li><a href="#api-type">API</a></li>
 <li><a href="#overview-http-verbs">HTTP 동사</a></li>
 <li><a href="#overview-http-status-codes">HTTP 상태 코드</a></li>
 <li><a href="#overview-errors">Exception</a></li>
@@ -23,19 +23,19 @@
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">링크</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">설명</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/share.md">/SHARE</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/share.md">SHARE</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">뿌리기 API</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/receive.md">/RECEIVE</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/receive.md">RECEIVE</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">받기 API</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/search.md">/SEARCH</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/shk3029/money/blob/master/search.md">SEARCH</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">조회 API</p></td>
 </tr>
 </tbody>
