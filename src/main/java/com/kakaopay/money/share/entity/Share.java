@@ -33,6 +33,7 @@ public class Share {
     private Integer count;
 
     @Column(name = "created_at")
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "share_type")

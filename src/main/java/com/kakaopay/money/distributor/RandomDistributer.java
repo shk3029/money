@@ -17,28 +17,21 @@ public class RandomDistributer implements Distributer {
 
     @Override
     public long[] distribute(long money, int count) {
-        final int MAX_RATE = 100;
 
         long[] moneyArr = new long[count];
-        int[] rateArr = new int[count];
+        long[] rateArr = new long[count];
 
         int sum = 0;
         for (int i=0; i<count-1; i++)
         {
+            int bound = (int)(money-sum) / 2;
+
             Random random = new Random();
-            rateArr[i] = random.nextInt((MAX_RATE - sum) / 2) + 1;
+            rateArr[i] =  bound >= 1 ?  random.nextInt(bound) + 1 : 0l;
             sum += rateArr[i];
         }
-        rateArr[count-1] = MAX_RATE-sum;
+        rateArr[count-1] = money-sum;
 
-        long charge = money;
-        for (int i=0; i<rateArr.length-1; i++) {
-            long temp = (long)((double) money * ((double)(rateArr[i]) / (double)100));
-            moneyArr[i] = temp;
-            charge = charge - temp;
-        }
-        moneyArr[rateArr.length-1] = charge;
-
-        return moneyArr;
+        return rateArr;
     }
 }
