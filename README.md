@@ -98,18 +98,23 @@ docker run —name postgres -p 5432:5432 -e POSTGRES_PASSWORD=1 -d postgres
 
 ### Test Case
 * API Controller Test
+
 ![image](https://user-images.githubusercontent.com/36438257/95745781-a2439100-0cd0-11eb-8626-28cd99e44c60.png)
 
 * API Docs Test
+
 ![image](https://user-images.githubusercontent.com/36438257/95745878-d1f29900-0cd0-11eb-85eb-2003864ecffd.png)
 
 * API Service Test
+
 ![image](https://user-images.githubusercontent.com/36438257/95746044-1f6f0600-0cd1-11eb-9dad-dcfc36fff7ad.png)
 
 * 분배 Test
+
 ![image](https://user-images.githubusercontent.com/36438257/95745928-ecc50d80-0cd0-11eb-8c2c-120d09a2d9f4.png)
 
 * 토큰발행 Test
+
 ![image](https://user-images.githubusercontent.com/36438257/95745979-036b6480-0cd1-11eb-8f72-f01413e537bc.png)
 
 
